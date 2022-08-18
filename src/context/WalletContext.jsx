@@ -16,6 +16,9 @@ const WalletProvider = ({ children }) => {
   const [account, setaccount] = useState()
   const [name, setname] = useState()
   const [balance, setbalance] = useState()
+  const [tokens, settokens] = useState()
+  const [transactions, settransactions] = useState()
+  const [receptions, setreceptions] = useState()
   const aptosClient = new AptosClient("https://fullnode.devnet.aptoslabs.com");
   const tokenClient = new TokenClient(aptosClient);
   const NODE_URL = "https://fullnode.devnet.aptoslabs.com";
@@ -25,18 +28,19 @@ const WalletProvider = ({ children }) => {
   const address = "0x2d34a73c9b6e9ed5733e3a7ecf80a51a0d7dd8eabb0342b441d0d9916ead87fc";
   //0x1e916f3391575b2ae1b968141aa4b35720a0bcc2840120d742e5ba37446f09b3
 
-  async function nameService() {
-    const response = await fetch(`https://www.aptosnames.com/api/v1/name/${account}`);
+  async function nameService(address) {
+    const response = await fetch(`https://www.aptosnames.com/api/v1/name/${address}`);
     const { name } = await response.json();
-    const receivestring = JSON.stringify(await walletClient.getSentEvents(account));
+    // const receivestring = JSON.stringify(await walletClient.getSentEvents(account));
     // setreceive(receivestring)
-    console.log('Balance:', await walletClient.getBalance(account));
+    // console.log('Balance:', await walletClient.getBalance(account));
     // console.log('getTokenIds:', await walletClient.getTokenIds(account));
-    console.log('receive:', await walletClient.getReceivedEvents(account));
-    console.log('send:', await walletClient.getSentEvents(account));
+    // console.log('receive:', await walletClient.getReceivedEvents(account));
+    // console.log('send:', await walletClient.getSentEvents(account));
     // console.log('eve:', await aptosClient.getEventsByEventKey("0x03000000000000002d34a73c9b6e9ed5733e3a7ecf80a51a0d7dd8eabb0342b441d0d9916ead87fc"));
 
-    console.log("n",name,typeof account)
+    console.log("n", name, typeof account)
+    return name
   }
 
 
@@ -46,6 +50,7 @@ const WalletProvider = ({ children }) => {
       try {
         await window.martian.connect();
         setisconnect(true)
+        setaccount(await window.martian.address)
       } catch (error) {
         setisconnect(false)
         console.log(error)
@@ -88,14 +93,24 @@ const WalletProvider = ({ children }) => {
   }
 
   useEffect(() => {
+    console.log("acc", account)
     if (account === undefined) return
     async function getAccountInfo() {
-      await nameService()
       // Fetch user transactions
-      const response = await window.martian.connect();
-      const address = response.address;
-      const transactions = await window.martian.getAccountTransactions(address);
-      console.log("tran",transactions)
+      // const response = await window.martian.connect();
+      // const address = response.address;
+      // const transactions = await window.martian.getAccountTransactions(account);
+      // console.log("tran", transactions)
+      // console.log('Balance:', await walletClient.getBalance(account));
+      // console.log('getTokenIds:', await walletClient.getTokenIds(account));
+      // console.log('receive:', await walletClient.getReceivedEvents(account));
+      // console.log('send:', await walletClient.getSentEvents(account));
+      // console.log('eve:', await aptosClient.getEventsByEventKey("0x03000000000000002d34a73c9b6e9ed5733e3a7ecf80a51a0d7dd8eabb0342b441d0d9916ead87fc"));
+      setname(await nameService(account))
+      setbalance(await walletClient.getBalance(account))
+      settokens(await walletClient.getTokenIds(account))
+      settransactions(await walletClient.getSentEvents(account))
+      setreceptions( await walletClient.getReceivedEvents(account))
     }
     getAccountInfo()
   }, [account])

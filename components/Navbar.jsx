@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useWeb3Context } from '../src/context/WalletContext'
 
 const Navbar = () => {
-  const { iswallet,isconnect,account,balance,connectWallet,disconnect,sendApt } = useWeb3Context()
+  const { iswallet, isconnect, account, balance, connectWallet, disconnect, sendApt } = useWeb3Context()
   useEffect(() => {
     console.log("nav", isconnect)
   }, [isconnect])

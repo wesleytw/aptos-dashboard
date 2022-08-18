@@ -1,11 +1,9 @@
 import React, { useContext, useState, useEffect, createContext } from 'react'
-import { AptosClient, TokenClient } from "aptos";
-// import aptosWeb3 from '@martiandao/aptos-web3.js';
-import aptosWeb3, { WalletClient } from '@martiandao/aptos-web3-bip44.js';
+// import { AptosClient, TokenClient } from "aptos";
+import { WalletClient } from '@martiandao/aptos-web3-bip44.js';
 
 const web3Context = createContext()
 
-// 把context包useContext再export，就不用在children用useContext包
 export function useWeb3Context() {
   return useContext(web3Context)
 }
@@ -19,33 +17,18 @@ const WalletProvider = ({ children }) => {
   const [tokens, settokens] = useState()
   const [transactions, settransactions] = useState()
   const [receptions, setreceptions] = useState()
-  const aptosClient = new AptosClient("https://fullnode.devnet.aptoslabs.com");
-  const tokenClient = new TokenClient(aptosClient);
+  // const aptosClient = new AptosClient("https://fullnode.devnet.aptoslabs.com");
+  // const tokenClient = new TokenClient(aptosClient);
   const NODE_URL = "https://fullnode.devnet.aptoslabs.com";
   const FAUCET_URL = "https://faucet.devnet.aptoslabs.com";
-  // const walletClient = new aptosWeb3.WalletClient(NODE_URL, FAUCET_URL);
   const walletClient = new WalletClient(NODE_URL, FAUCET_URL);
-  const address = "0x2d34a73c9b6e9ed5733e3a7ecf80a51a0d7dd8eabb0342b441d0d9916ead87fc";
-  //0x1e916f3391575b2ae1b968141aa4b35720a0bcc2840120d742e5ba37446f09b3
-
   async function nameService(address) {
     const response = await fetch(`https://www.aptosnames.com/api/v1/name/${address}`);
     const { name } = await response.json();
-    // const receivestring = JSON.stringify(await walletClient.getSentEvents(account));
-    // setreceive(receivestring)
-    // console.log('Balance:', await walletClient.getBalance(account));
-    // console.log('getTokenIds:', await walletClient.getTokenIds(account));
-    // console.log('receive:', await walletClient.getReceivedEvents(account));
-    // console.log('send:', await walletClient.getSentEvents(account));
-    // console.log('eve:', await aptosClient.getEventsByEventKey("0x03000000000000002d34a73c9b6e9ed5733e3a7ecf80a51a0d7dd8eabb0342b441d0d9916ead87fc"));
-
-    console.log("n", name, typeof account)
     return name
   }
 
-
   async function connectWallet() {
-    // console.log("mat", window.martian)
     if ("martian" in window) {
       try {
         await window.martian.connect();
@@ -66,14 +49,6 @@ const WalletProvider = ({ children }) => {
     await window.martian.disconnect();
   }
 
-  const getProvider = () => {
-    console.log("mat", window.martian)
-    if ("martian" in window) {
-      return (window.martian);
-    };
-    // window.open("https://www.martianwallet.xyz/", "_blank");
-  }
-
   async function checkWallet() {
     const isConnectMartian = await window.martian.isConnected()
     if (!isConnectMartian) {
@@ -81,31 +56,13 @@ const WalletProvider = ({ children }) => {
       return
     }
     setisconnect(true)
-    // if (window.martian._isConnected == false) return
-    // const account = await window.martian.address
     setaccount(await window.martian.address)
-    // await nameService()
-    // setbalance(await tokenClient.getTokenBalanceForAccount(account, "0x1"))
-    // // const balance = await tokenClient.getTokenBalanceForAccount(address, "0x1")
-    // // const balance = await aptosClient.getChainId()
-    // console.log("check", window.martian, account, isconnect, await window.martian.account())
-    // console.log("balance che", balance)
   }
 
   useEffect(() => {
     console.log("acc", account)
     if (account === undefined) return
     async function getAccountInfo() {
-      // Fetch user transactions
-      // const response = await window.martian.connect();
-      // const address = response.address;
-      // const transactions = await window.martian.getAccountTransactions(account);
-      // console.log("tran", transactions)
-      // console.log('Balance:', await walletClient.getBalance(account));
-      // console.log('getTokenIds:', await walletClient.getTokenIds(account));
-      // console.log('receive:', await walletClient.getReceivedEvents(account));
-      // console.log('send:', await walletClient.getSentEvents(account));
-      // console.log('eve:', await aptosClient.getEventsByEventKey("0x03000000000000002d34a73c9b6e9ed5733e3a7ecf80a51a0d7dd8eabb0342b441d0d9916ead87fc"));
       setname(await nameService(account))
       setbalance(await walletClient.getBalance(account))
       settokens(await walletClient.getTokenIds(account))
@@ -117,7 +74,6 @@ const WalletProvider = ({ children }) => {
 
 
   async function sendApt(address, amount) {
-    // Generate a transaction
     const response = await window.martian.connect();
     const sender = response.address;
     const payload = {
@@ -135,7 +91,6 @@ const WalletProvider = ({ children }) => {
   async function sign() {
     const signature = await window.martian.signMessage("This is a sample message");
     console.log("sign", signature)
-    // {signature: '0x4d215a31797d56e28ee1c8e2cf5dc41b4aff9d2371b507d6…e97746dd7232fd6f1537d1b38e20dc620c44135de7b8ec107'}
   }
 
   useEffect(() => {
@@ -151,18 +106,18 @@ const WalletProvider = ({ children }) => {
     iswallet: iswallet,
     isconnect: isconnect,
     account: account,
+    name: name,
     balance: balance,
+    tokens: tokens,
+    transactions: transactions,
+    receptions: receptions,
     connectWallet: connectWallet,
     disconnect: disconnect,
     sign: sign,
-    sendApt: sendApt,
-    // setisconnect: setisconnect 
+    sendApt: sendApt
   }
 
   return (
-    // 每個provider 只能一個value 所以會有很多provider wrapper
-    // ，這裡把它全部先包裝 才不會在App.js包一堆。 
-    //不對，value可包成物件 方便。
     <web3Context.Provider value={contextValue}>
       {children}
     </web3Context.Provider>

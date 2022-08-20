@@ -17,7 +17,7 @@ const Modalinstall = () => {
             <a className=" mb-4 px-4 py-2 flex justify-center items-center rounded bg-black cursor-pointer"
               href='https://martianwallet.xyz/' target="_blank" rel="noopener noreferrer">
               <Image width={20} height={20} src="/icons/martian.svg" alt="" />
-              <p className="ml-2 font-mono text-base ">Matian Wallet<div class="items-start ml-1 badge badge-warning badge-sm">beta</div></p>
+              <p className="ml-2 font-mono text-base ">Matian Wallet<span className="items-start ml-1 badge badge-warning badge-sm">beta</span></p>
             </a>
             <a className=" mb-4 px-4 py-2 flex justify-center items-center rounded bg-black cursor-pointer"
               href='https://github.com/aptos-labs/aptos-core/releases/' target="_blank" rel="noopener noreferrer">

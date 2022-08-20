@@ -55,7 +55,7 @@ const Navbar = () => {
                     />
                     <p className="text-apt-green normal-case">{name ? name : shortenAddress(account)}</p>
                   </label>
-                  <ul tabIndex="0" className=" mt-2 dropdown-content menu p-2 shadow bg-black text-white rounded-lg w-40">
+                  <ul tabIndex="0" className=" mt-2 dropdown-content menu p-2 shadow bg-black text-white rounded-lg w-[133px]">
                     <li><a href={`https://explorer.devnet.aptos.dev/account/${account}`} target="_blank" rel="noopener noreferrer"
                       className="p-1 text-center justify-center hover:bg-apt-grey">
                       <p className="flex items-center">explorer <HiOutlineExternalLink /></p></a></li>
@@ -69,26 +69,6 @@ const Navbar = () => {
             }
           </>
         )}
-
-        {/* {(iswallet && !isconnect) &&
-        <button button onClick={() => connectWallet()} className=" btn btn-xs normal-case border-none text-apt-dark bg-apt-green hover:shadow hover:shadow-[#88f6d7] hover:bg-apt-green ">
-          Connect Wallet</button>
-      } */}
-        {/* <button button onClick={() => connectWallet()} className=" btn btn-xs btn-secondary normal-case border-none text-white hover:shadow hover:shadow-[#88f6d7]  ">
-          Connect Wallet</button> */}
-
-        {/* <>
-        <input type="checkbox" id="my-modal-4" className="modal-toggle " />
-        <label htmlFor="my-modal-4" className="modal cursor-pointer white-glassmorphism">
-          <label className="modal-box relative h-5/6 w-11/12 max-w-5xl p-0 bg-white border-2 border-black rounded-3xl overflow-hidden shadow-2xl shadow-[#000000ce]" htmlFor="">
-            <label htmlFor="my-modal-4" className="btn btn-sm btn-primary btn-circle border-none text-white overflow-hidden hover:bg-secondary absolute right-4 top-4 ">
-              ✕</label>
-            <div className="flex h-full justify-center items-center overflow-hidden px-16 bg-[#e9dfdf8e]  shadow-lg">
-
-            </div>
-          </label>
-        </label>
-      </> */}
       </nav >
 
       <nav className="fixed pt-[76px] h-screen w-60 border-r border-apt-grey bg-apt-dark

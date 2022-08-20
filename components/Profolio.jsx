@@ -3,9 +3,9 @@ import React from 'react'
 const Profolio = () => {
   return (
     <div className="p-20 pt-0 text-3xl">
-      <div className=" w-full p-4 bg-apt-dark border border-apt-grey rounded-3xl ">
-      <p className=" border-b border-apt-grey">Tokens </p>
-      <div className=""></div>
+      <div className=" w-full p-4 bg-apt-dark border border-apt-grey rounded-2xl ">
+        <p className=" border-b border-apt-grey">Tokens </p>
+        <div className=""></div>
       </div>
       <p className="">Nfts </p>
       <p className="">Names </p>

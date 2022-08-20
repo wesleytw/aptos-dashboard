@@ -3,7 +3,8 @@ import { useWeb3Context } from '../src/contexts/WalletContext'
 import Blockies from 'react-blockies';
 import Image from 'next/image'
 import { HiOutlineExternalLink } from 'react-icons/hi';
-import {Profolio,Activity} from '../components'
+import { Profolio, Activity } from '../components'
+import { shortenAddress } from '../src/utils/shortenAddress'
 
 
 const App = () => {
@@ -40,38 +41,51 @@ const App = () => {
         />
       </div>
       <div className=" relative bg-apt-dark px-20 pt-8 border-b border-apt-grey">
-        <div className="flex">
-          <div className=" w-min flex justify-between items-center">
-            <p className=" text-3xl">0xac1...cls</p>
-            {copy == "account" ? (
-              <>
-                <img className="ml-2 h-4 w-4 cursor-pointer" src='/icons/ic_copied.svg' />
-                <div className=" absolute left-[225px] top-3 text-xs font-normal rounded bg-black bg-opacity-70 px-[6px] py-1 shadow">
-                  Copied!</div>
-              </>
-            ) : (
-              <img className="ml-2 h-4 w-4 cursor-pointer" src='/icons/ic_copy.svg' onClick={(e) => { navigator.clipboard.writeText(account); handleCopy("account") }} />
-            )}
+        <div className=" flex justify-between">
+          <div className=" flex w-max min-w-max">
+            <div className=" w-min flex justify-between items-center">
+              <p className=" text-3xl">{account ? shortenAddress(account) : ""}</p>
+              {copy == "account" ? (
+                <>
+                  <img className="ml-2 h-4 w-4 cursor-pointer" src='/icons/ic_copied.svg' />
+                  <div className=" absolute left-[225px] top-3 text-xs font-normal rounded bg-black bg-opacity-70 px-[6px] py-1 shadow">
+                    Copied!</div>
+                </>
+              ) : (
+                <img className="ml-2 h-4 w-4 cursor-pointer" src='/icons/ic_copy.svg' onClick={(e) => { navigator.clipboard.writeText(account); handleCopy("account") }} />
+              )}
+            </div>
+            <div className=" relative ml-12 mt-2 w-max flex justify-between items-baseline ">
+              {name ? (
+                <>
+                  <p className=" text-xl">wes.apt</p>
+                  {copy == "name" ? (
+                    <>
+                      <img className="ml-2 h-4 w-4 cursor-pointer" src='/icons/ic_copied.svg' />
+                      <div className=" absolute left-[70px] -top-5 text-xs font-normal rounded bg-black bg-opacity-70 px-[6px] py-1 shadow">
+                        Copied!</div>
+                    </>
+                  ) : (
+                    <img className="ml-2 h-4 w-4 cursor-pointer" src='/icons/ic_copy.svg' onClick={(e) => { navigator.clipboard.writeText(name); handleCopy("name") }} />
+                  )}
+                </>
+              ) : (
+                <a className=" pt-[10px] w-max text-xs min-h-8 text-apt-light-grey flex justify-start items-baseline hover:underline "
+                  href='https://www.aptosnames.com/' target="_blank" rel="noopener noreferrer">
+                  <p className="">get a .apt name </p>
+                  <HiOutlineExternalLink className="pt-[2px]" />
+                </a>
+              )
+              }
+            </div>
           </div>
-          <div className=" relative ml-12 mt-2 w-max flex justify-between items-baseline ">
-            <p className=" text-xl">wes.apt</p>
-            {copy == "name" ? (
-              <>
-                <img className="ml-2 h-4 w-4 cursor-pointer" src='/icons/ic_copied.svg' />
-                <div className=" absolute left-[70px] -top-5 text-xs font-normal rounded bg-black bg-opacity-70 px-[6px] py-1 shadow">
-                  Copied!</div>
-              </>
-            ) : (
-              <img className="ml-2 h-4 w-4 cursor-pointer" src='/icons/ic_copy.svg' onClick={(e) => { navigator.clipboard.writeText(name); handleCopy("name") }} />
-            )}
-            {!name &&
-              <a className=" pt-[10px] w-max text-xs min-h-8 text-apt-light-grey flex justify-start items-baseline hover:underline "
-                href='https://www.aptosnames.com/' target="_blank" rel="noopener noreferrer">
-                <p className="">get a .apt name </p>
-                <HiOutlineExternalLink className="pt-[2px]" />
-              </a>
-            }
-          </div>
+          <a href={`https://explorer.devnet.aptos.dev/account/${account}`} target="_blank" rel="noopener noreferrer">
+            <button
+              className=" rounded-lg px-2 py-1 text-baseline justify-center items-center hover:bg-apt-grey">
+              <p className="flex items-center">View on Explorer <HiOutlineExternalLink />
+              </p>
+            </button>
+          </a>
         </div>
         <Blockies
           seed={account}
@@ -93,18 +107,9 @@ const App = () => {
             Activity</button>
         </div>
       </div>
-      {/* <div className="p-20 text-lg">
-        <button onClick={() => connectWallet()} className="m-4 bg-slate-400">connect wallet</button>
-        <button onClick={() => disconnect()} className="m-4 bg-slate-400">disconnect</button>
-        <Image width={14} height={14} src="/icons/aptos_logo.svg" alt="" />
-      </div> */}
-      <div className="py-12">
-        <button onClick={()=>sendApt("0xe0fb3a830f185ee1e77eb6aeb253eed9f222afcdcf88f5cbebad3132e77d9857","100")}>send apt</button>
-        <button onClick={()=>sign("0xe0fb3a830f185ee1e77eb6aeb253eed9f222afcdcf88f5cbebad3132e77d9857","100")}>sssssssign</button>
-
-      {tabState == "Profolio" && <Profolio />}
-      {tabState == "activity" && <Activity />}
-
+      <div className="py-10">
+        {tabState == "Profolio" && <Profolio />}
+        {tabState == "activity" && <Activity />}
       </div>
 
     </div>

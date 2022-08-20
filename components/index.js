@@ -3,3 +3,4 @@ export {default as Navbar} from './Navbar';
 export {default as Footer} from './Footer';
 export {default as Profolio} from './Profolio';
 export {default as Activity} from './Activity';
+export {default as Modalinstall} from './Modalinstall';

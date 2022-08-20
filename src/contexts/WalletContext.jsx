@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect, createContext } from 'react'
 // import { AptosClient, TokenClient } from "aptos";
 import { WalletClient } from '@martiandao/aptos-web3-bip44.js';
+import { BCS, TxnBuilderTypes } from 'aptos';
 
 const web3Context = createContext()
 
@@ -19,14 +20,61 @@ const WalletProvider = ({ children }) => {
   const [receptions, setreceptions] = useState()
   // const aptosClient = new AptosClient("https://fullnode.devnet.aptoslabs.com");
   // const tokenClient = new TokenClient(aptosClient);
-  const NODE_URL = "https://fullnode.devnet.aptoslabs.com";
-  const FAUCET_URL = "https://faucet.devnet.aptoslabs.com";
+  const NODE_URL = "https://fullnode.devnet.aptoslabs.com/v1";
+  const FAUCET_URL = "https://faucet.devnet.aptoslabs.com/";
   const walletClient = new WalletClient(NODE_URL, FAUCET_URL);
-  async function nameService(address) {
-    const response = await fetch(`https://www.aptosnames.com/api/v1/name/${address}`);
-    const { name } = await response.json();
-    return name
+
+  useEffect(() => {
+    if ("martian" in window) {
+      if (iswallet === false) { setiswallet(true) }
+      checkWallet()
+    } else if ("aptos" in window) {
+      if (iswallet === false) { setiswallet(true) }
+      checkWallet()
+    } else {
+      setiswallet(false)
+    }
+  }, [iswallet, isconnect])
+
+  async function checkWallet() {
+    if ("martian" in window) {
+      const isConnectMartian = await window.martian.isConnected()
+      if (!isConnectMartian) {
+        setisconnect(false)
+        return
+      }
+      setisconnect(true)
+      setaccount(await window.martian.address)
+    } else if ("aptos" in window) {
+      const isConnect = await window.aptos.isConnected()
+      if (!isConnect) {
+        setisconnect(false)
+        return
+      }
+      setisconnect(true)
+      const addr = (await window.aptos.account()).address
+      setaccount(addr)
+    }
   }
+
+  useEffect(() => {
+    console.log("acc", account)
+    if (account === undefined) {
+      return
+    }
+    async function getAccountInfo() {
+      // setname(await nameService(account))
+      setbalance(await walletClient.getBalance(account))
+      // settokens(await walletClient.getTokenIds(account))
+      settransactions(await walletClient.getSentEvents(account))
+      setreceptions(await walletClient.getReceivedEvents(account))
+    }
+    getAccountInfo()
+  }, [account])
+
+  useEffect(() => {
+    console.log("info", name, account, balance, transactions, receptions)
+  }, [name, account, balance, transactions, receptions])
 
   async function connectWallet() {
     if ("martian" in window) {
@@ -38,74 +86,103 @@ const WalletProvider = ({ children }) => {
         setisconnect(false)
         console.log(error)
       }
-      console.log("connectWalleted", window.martian,name)
+      console.log("connectWalleted", window.martian)
+    } else if ("aptos" in window) {
+      try {
+        await window.aptos.connect();
+        setisconnect(true)
+        const addr = (await window.aptos.account()).address
+        setaccount(addr)
+      } catch (error) {
+        setisconnect(false)
+        console.log(error)
+      }
+      console.log("connectWalleted atp")
     } else {
-      console.log("no martian", window.martian)
+      resetState()
+      console.log("no wallet")
     }
   }
 
   async function disconnect() {
-    if (window.martian._isConnected === false) return
-    await window.martian.disconnect();
-  }
-
-  async function checkWallet() {
-    const isConnectMartian = await window.martian.isConnected()
-    if (!isConnectMartian) {
-      setisconnect(false)
-      return
+    if ("martian" in window) {
+      if (window.martian._isConnected === false) return
+      await window.martian.disconnect();
+      resetState()
+      console.log("isConnected apt wallet", await window.martian._isConnected)
+    } else if ("aptos" in window) {
+      if (await window.aptos.isConnected() === false) return
+      await window.aptos.disconnect()
+      resetState()
+      console.log("isConnected apt wallet", await window.aptos.isConnected())
     }
-    setisconnect(true)
-    setaccount(await window.martian.address)
   }
-
-  useEffect(() => {
-    console.log("acc", account)
-    if (account === undefined) return
-    async function getAccountInfo() {
-      setname(await nameService(account))
-      setbalance(await walletClient.getBalance(account))
-      settokens(await walletClient.getTokenIds(account))
-      settransactions(await walletClient.getSentEvents(account))
-      setreceptions( await walletClient.getReceivedEvents(account))
-    }
-    getAccountInfo()
-  }, [account])
-
-  useEffect(() => {
-    
-  console.log("name",name,account)
-  }, [name,account])
-  
 
   async function sendApt(address, amount) {
-    const response = await window.martian.connect();
-    const sender = response.address;
-    const payload = {
-      type: "script_function_payload",
-      function: "0x1::coin::transfer",
-      type_arguments: ["0x1::aptos_coin::AptosCoin"],
-      arguments: [address, amount]
-    };
-    const transaction = await window.martian.generateTransaction(sender, payload);
-    const signedTxn = await window.martian.signTransaction(transaction);
-    const txnHash = await window.martian.submitTransaction(signedTxn);
-    console.log("send", txnHash)
-  }
-
-  async function sign() {
-    const signature = await window.martian.signMessage("This is a sample message");
-    console.log("sign", signature)
-  }
-
-  useEffect(() => {
     if ("martian" in window) {
-      if (iswallet === false) { setiswallet(true) }
-      checkWallet()
-    } else {
-      setiswallet(false)
+      try {
+        const response = await window.martian.connect();
+        const sender = response.address;
+        const payload = {
+          type: "script_function_payload",
+          function: "0x1::coin::transfer",
+          type_arguments: ["0x1::aptos_coin::AptosCoin"],
+          arguments: [address, amount]
+        };
+        const transaction = await window.martian.generateTransaction(sender, payload);
+        const signedTxn = await window.martian.signTransaction(transaction);
+        const txnHash = await window.martian.submitTransaction(signedTxn);
+        console.log("send", txnHash)
+      } catch (error) {
+        console.log(error)
+      }
+    } else if ("aptos" in window) {
+      try {
+        const transaction = {
+          arguments: [address, amount],
+          function: '0x1::coin::transfer',
+          type: 'entry_function_payload',
+          type_arguments: ['0x1::aptos_coin::AptosCoin'],
+        };
+        const response = await window.aptos.signAndSubmitTransaction(transaction)
+        console.log("rep", response)
+      } catch (error) {
+        console.log(error)
+      }
     }
-  }, [iswallet, isconnect])
+  }
+
+  async function sign(address, amount) {
+    if ("martian" in window) {
+      const signature = await window.martian.signMessage("This is a sample message");
+      console.log("sign", signature)
+    } else if ("aptos" in window) {
+      const transaction = {
+        arguments: [address, amount],
+        function: '0x1::coin::transfer',
+        type: 'entry_function_payload',
+        type_arguments: ['0x1::aptos_coin::AptosCoin'],
+      }
+      const signedTransaction = await window.aptos.signTransaction(transaction)
+      console.log("sign", signedTransaction)
+    }
+  }
+
+  function resetState() {
+    setisconnect(false)
+    setaccount()
+    setname()
+    setbalance()
+    settokens()
+    settransactions()
+    setreceptions()
+  }
+  
+  async function nameService(address) {
+    const response = await fetch(`https://www.aptosnames.com/api/v1/name/${address}`);
+    const { name } = await response.json();
+    return name
+  }
 
   const contextValue = {
     iswallet: iswallet,

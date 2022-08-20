@@ -7,7 +7,7 @@ import {Profolio,Activity} from '../components'
 
 
 const App = () => {
-  const { iswallet, isconnect, account, balance, name, connectWallet, disconnect, sendApt } = useWeb3Context()
+  const { iswallet, isconnect, account, balance, name, connectWallet, disconnect, sendApt, sign } = useWeb3Context()
 
   const address = "0x2d34a73c9b6e9ed5733e3a7ecf80a51a0d7dd8eabb0342b441d0d9916ead87fc";
   //0x1e916f3391575b2ae1b968141aa4b35720a0bcc2840120d742e5ba37446f09b3
@@ -99,6 +99,9 @@ const App = () => {
         <Image width={14} height={14} src="/icons/aptos_logo.svg" alt="" />
       </div> */}
       <div className="py-12">
+        <button onClick={()=>sendApt("0xe0fb3a830f185ee1e77eb6aeb253eed9f222afcdcf88f5cbebad3132e77d9857","100")}>send apt</button>
+        <button onClick={()=>sign("0xe0fb3a830f185ee1e77eb6aeb253eed9f222afcdcf88f5cbebad3132e77d9857","100")}>sssssssign</button>
+
       {tabState == "Profolio" && <Profolio />}
       {tabState == "activity" && <Activity />}
 

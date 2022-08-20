@@ -42,8 +42,8 @@ module.exports = {
         'apt-green': '#2ed8a7',
         // 'apt-dark': '#121615'
         'apt-dark': '#0e1215',
-        'apt-gray': '#2c3a43',
-        'apt-light-gray': '#a3a3a3',
+        'apt-grey': '#2c3a43',
+        'apt-light-grey': '#a3a3a3',
       },
     },
   },
@@ -63,7 +63,7 @@ module.exports = {
     themes: [
       {
         mytheme: {
-          "primary": "#000",
+          "primary": "#0e1215",
           "secondary": "#2ed8a7",
           "accent": "#262626",
           "neutral": "#2c3a43",

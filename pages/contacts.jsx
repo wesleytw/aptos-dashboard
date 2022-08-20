@@ -54,23 +54,23 @@ const App = () => {
   const [receive, setreceive] = useState()
   // const walletClient = new aptosWeb3.WalletClient();
 
-  const NODE_URL = "https://fullnode.devnet.aptoslabs.com/v1";
+  const NODE_URL = "https://fullnode.devnet.aptoslabs.com";
   const FAUCET_URL = "https://faucet.devnet.aptoslabs.com";
   // const walletClient = new aptosWeb3.WalletClient(NODE_URL, FAUCET_URL);
   const walletClient = new WalletClient(NODE_URL, FAUCET_URL);
-  const address = "0xaefba27963e8eef3f18ba45155ccb348898f2a0267dbaa6f928476da84c4995a";
+  const address = "0x2d34a73c9b6e9ed5733e3a7ecf80a51a0d7dd8eabb0342b441d0d9916ead87fc";
   //0x1e916f3391575b2ae1b968141aa4b35720a0bcc2840120d742e5ba37446f09b3
 
   async function nameserv() {
-    // const response = await fetch(`https://www.aptosnames.com/api/v1/name/${address}`);
-    // const { name } = await response.json();
-    // const receivestring = JSON.stringify(await walletClient.getSentEvents(address));
-    // setreceive(receivestring)
+    const response = await fetch(`https://www.aptosnames.com/api/v1/name/${address}`);
+    const { name } = await response.json();
+    const receivestring = JSON.stringify(await walletClient.getSentEvents(address));
+    setreceive(receivestring)
     console.log('Balance:', await walletClient.getBalance(address));
     console.log('getTokenIds:', await walletClient.getTokenIds(address));
     console.log('receive:', await walletClient.getReceivedEvents(address));
     console.log('send:', await walletClient.getSentEvents(address));
-    // console.log('eve:', await aptosClient.getEventsByEventKey("0x03000000000000002d34a73c9b6e9ed5733e3a7ecf80a51a0d7dd8eabb0342b441d0d9916ead87fc"));
+    console.log('eve:', await aptosClient.getEventsByEventKey("0x03000000000000002d34a73c9b6e9ed5733e3a7ecf80a51a0d7dd8eabb0342b441d0d9916ead87fc"));
 
     console.log(name)
   }
@@ -152,12 +152,12 @@ const App = () => {
 
 
   return (
-    <div className=' ml-60 pt-48 h-[800px]'>
+    <div className=' pt-48 h-[800px]'>
       <button onClick={() => nameserv()} className="m-4 bg-slate-400">getProvider </button>
       <button onClick={() => connectWallet()} className="m-4 bg-slate-400">connect wallet</button>
       <button onClick={() => checkWallet()} className="m-4 bg-slate-400">checkWallet</button>
       <button onClick={() => disconnect()} className="m-4 bg-slate-400">disconnect</button>
-      <div className=" bg-amber-300 flex">
+      <div className=" bg-white flex">
         <button onClick={() => send()} className="m-4 bg-slate-400">send</button>
         <button onClick={() => sign()} className="m-4 bg-slate-400">sign</button>
       </div>

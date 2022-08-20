@@ -8,7 +8,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title>Aptos Dashboard</title>
+        <title>Dashboard</title>
         <link rel="apple-touch-icon" href="/vercel.svg" />
       </Head>
       {/* <Web3Provider> */}

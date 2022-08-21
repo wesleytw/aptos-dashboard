@@ -2,10 +2,15 @@ import React, { useState } from 'react'
 import { useWeb3Context } from '../src/contexts/WalletContext'
 import { Trans } from '../components'
 const Activity = () => {
-  const { iswallet, isconnect, account, balance, name, transactions, receptions, connectWallet, disconnect, sendApt } = useWeb3Context()
+  const { iswallet, isconnect, account, balance, name, transactions, receptions,getAllTransctions, connectWallet, disconnect, sendApt } = useWeb3Context()
   const [tabState, setTabState] = useState("Transactions")
-  console.log("transactions", transactions,receptions)
+  async function fe(){
 
+    console.log("transactions", transactions,receptions
+    ,await getAllTransctions(account)
+    )
+  }
+fe()
 
 
   return (

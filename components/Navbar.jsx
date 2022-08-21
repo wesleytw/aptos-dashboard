@@ -8,7 +8,7 @@ import { disableScroll, enableScroll } from '../src/utils/disableScroll'
 import { shortenAddress } from '../src/utils/shortenAddress'
 import Blockies from 'react-blockies';
 import { HiOutlineExternalLink } from 'react-icons/hi';
-import { AiFillHome } from 'react-icons/ai';
+import { AiFillHome, AiFillApi } from 'react-icons/ai';
 import { BsFillPeopleFill, BsPersonFill } from 'react-icons/bs';
 import { BiUser } from 'react-icons/bi';
 
@@ -72,29 +72,37 @@ const Navbar = () => {
       </nav >
 
       <nav className="fixed pt-[76px] h-screen w-60 border-r border-apt-grey bg-apt-dark
-        p-4">
-        <Link href='/'>
+        p-4 flex flex-col justify-between">
+        <div className="">
+          <Link href='/'>
+            <div className=" w-full btn btn-primary text-base justify-start hover:bg-apt-grey normal-case text-white">
+              <AiFillHome className={`w-5 h-5 mr-3 ${(router.pathname == "/") ? "text-apt-green" : "text-white"}`} />
+              Home
+            </div>
+          </Link>
+          {account &&
+            <Link href='/profile'>
+              <div className=" w-full btn btn-primary text-base justify-start hover:bg-apt-grey normal-case text-white">
+                <BsPersonFill className={`w-5 h-5 mr-3 ${(router.pathname == "/profile") ? "text-apt-green" : "text-white"}`} />
+                Profile
+              </div>
+            </Link>
+          }
+          {account &&
+            <Link href='/contacts'>
+              <div className=" w-full btn btn-primary text-base justify-start hover:bg-apt-grey normal-case text-white">
+                <BsFillPeopleFill className={`w-5 h-5 mr-3 ${(router.pathname == "/contacts") ? "text-apt-green" : "text-white"}`} />
+                Contacts
+              </div>
+            </Link>
+          }
+        </div>
+        <Link href='/introapi'>
           <div className=" w-full btn btn-primary text-base justify-start hover:bg-apt-grey normal-case text-white">
-            <AiFillHome className={`w-5 h-5 mr-3 ${(router.pathname == "/") ? "text-apt-green" : "text-white"}`} />
-            Home
+            <AiFillApi className={`w-5 h-5 mr-3 ${(router.pathname == "/contacts") ? "text-apt-green" : "text-white"}`} />
+            Api
           </div>
         </Link>
-        {account &&
-          <Link href='/profile'>
-            <div className=" w-full btn btn-primary text-base justify-start hover:bg-apt-grey normal-case text-white">
-              <BsPersonFill className={`w-5 h-5 mr-3 ${(router.pathname == "/profile") ? "text-apt-green" : "text-white"}`} />
-            Profile
-          </div>
-          </Link>
-        }
-        {account &&
-          <Link href='/contacts'>
-            <div className=" w-full btn btn-primary text-base justify-start hover:bg-apt-grey normal-case text-white">
-              <BsFillPeopleFill className={`w-5 h-5 mr-3 ${(router.pathname == "/contacts") ? "text-apt-green" : "text-white"}`} />
-            Contacts
-          </div>
-          </Link>
-        }
       </nav>
     </div>
   )

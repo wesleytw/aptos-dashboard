@@ -28,7 +28,7 @@ const App = () => {
 
 
   return (
-    <div className=' ml-60 pt-[60px] h-[1800px] font-maru font-bold text-base'>
+    <div className=' ml-60 pt-[60px] min-h-screen font-maru font-bold text-base'>
       <div className=" h-32 bg-gradient-to-t from-black via-apt-dark w-full bg-apt-dark overflow-hidden ">
         <Blockies
           seed={account}

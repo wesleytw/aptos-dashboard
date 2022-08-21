@@ -66,9 +66,8 @@ const WalletProvider = ({ children }) => {
       return
     }
     async function getAccountInfo() {
-      // setname(await nameService(account))
       setbalance(await walletClient.getBalance(account))
-      // settokens(await walletClient.getTokenIds(account))
+      settokens(await walletClient.getTokenIds(account))
       const sendEvents = await walletClient.getSentEvents(account)
       const descendSendEvents = [...sendEvents].sort((a, b) => b.timestamp - a.timestamp);
       settransactions(descendSendEvents)
@@ -82,6 +81,8 @@ const WalletProvider = ({ children }) => {
       const combinedEvents = [...sendEvents, ...getEventsWithTime]
       const descendCombinedEvents = [...combinedEvents].sort((a, b) => b.timestamp - a.timestamp);
       setallTransactions(descendCombinedEvents)
+      const name = await nameService(account)
+      if (name !== undefined) { setname(name) }
     }
     getAccountInfo()
   }, [account])
@@ -101,8 +102,8 @@ const WalletProvider = ({ children }) => {
   }
 
   // useEffect(() => {
-  //   async function info (){
-  //     console.log("info", name, account, balance, transactions, receptions,await getAllTransctions(account))
+  //   async function info() {
+  //     console.log("info", name, account, balance, tokens, transactions, receptions, await getAllTransctions(account))
   //   }
   //   info()
   // }, [receptions])

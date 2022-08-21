@@ -21,13 +21,14 @@ const App = () => {
         <button onClick={() => send()} className="m-4 bg-slate-400">send</button>
         <button onClick={() => sign()} className="m-4 bg-slate-400">sign</button>
       </div> */}
-      <div className="h-[1440px] w-full">
+      <div className="h-[1440px] w-full p-96">
         {/* {receive} */}
+        
+      <SiEthereum fontSize={300} color="#000" />
+      <SiEthereum className="w-16 h-16 text-amber-700 font-extrabold text-9xl" />
       </div>
 
-{/* 
-      <SiEthereum fontSize={100} color="#000" />
-      <SiEthereum className="w-16 h-16 text-amber-700 " /> */}
+
 
     </div>
   )

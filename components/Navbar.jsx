@@ -30,13 +30,13 @@ const Navbar = () => {
           <h1 className=" ml-1 text-lg"><span className="text-apt-green">apto</span>themoon</h1>
         </div>
         {!iswallet ? (
-          <label htmlFor="installmartian" onClick={() => disableScroll()} className=" btn btn-xs btn-secondary normal-case border-none text-apt-dark">
+          <label htmlFor="installmartian" onClick={() => disableScroll()} className=" btn btn-sm btn-secondary normal-case border-none text-apt-dark">
             Install Wallet
           </label>
         ) : (
           <>
             {!isconnect ? (
-              <button onClick={() => connectWallet()} className=" btn btn-xs btn-secondary normal-case border-none text-apt-dark ">
+              <button onClick={() => connectWallet()} className=" btn btn-sm btn-secondary normal-case border-none text-apt-dark ">
                 Connect Wallet</button>
             ) : (
               <div className="p-[2px] bg-black flex justify-start items-center rounded-lg border-none text-apt-dark text-sm">

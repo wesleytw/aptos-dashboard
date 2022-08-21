@@ -1,6 +1,6 @@
 export const shortenAddress = (address) => {
   if (!address) return "error"
-  return `${address.slice(0, 5)}...${address.slice(address.length - 3)}`;
+  return `${address.slice(0, 5)}...${address.slice(address.length - 4)}`;
 }
 export const encryptData = (item) => {
   // name /^data:\w+\/\w+;base64,/

@@ -18,7 +18,7 @@ const Activity = () => {
   return (
     <div className=" text-3xl">
       <div className=" w-full p-4 bg-apt-dark border border-apt-grey rounded-lg ">
-        <div className=" w-max flex rounded-lg bg-black border border-apt-grey overflow-hidden">
+        <div className=" mb-4 w-max flex rounded-lg bg-black border border-apt-grey overflow-hidden">
           <button className={" px-4 py-2 text-sm font-semibold text-center"
             + (tabState == "AllTransactions" ? ' text-white ' : ' text-apt-light-grey hover:text-white border-0  ')}
             onClick={() => setTabState("AllTransactions")}>
@@ -34,6 +34,22 @@ const Activity = () => {
             onClick={() => { setTabState("Receptions") }}>
             Receptions</button>
         </div>
+        {tabState == "AllTransactions" &&
+          <>
+            {allTransactions?.length < 1 ? (
+              <div className=" h-48 w-full p-16 text-2xl text-center text-apt-light-grey">
+                No Activity
+              </div>
+            ) : (
+              <div className=" rounded-lg w-full border border-apt-grey overflow-hidden">
+                {allTransactions?.map((trans, index) => (
+                  <Trans key={index} onetrans={trans} account={account} />
+                ))}
+              </div>
+            )
+            }
+          </>
+        }
         {tabState == "Transactions" &&
           <>
             {transactions?.length < 1 ? (
@@ -41,9 +57,9 @@ const Activity = () => {
                 No Activity
               </div>
             ) : (
-              <div className=" mt-2 rounded-lg w-full border border-apt-grey overflow-hidden">
+              <div className=" rounded-lg w-full border border-apt-grey overflow-hidden">
                 {transactions?.map((trans, index) => (
-                  <Trans key={index} onetrans={trans} isReceive={false} />
+                  <Trans key={index} onetrans={trans} account={account}  />
                 ))}
               </div>
             )
@@ -57,9 +73,9 @@ const Activity = () => {
                 No Activity
               </div>
             ) : (
-              <div className=" mt-2 rounded-lg w-full border border-apt-grey">
+              <div className=" rounded-lg w-full border border-apt-grey">
                 {receptions?.map((trans, index) => (
-                  <Trans key={index} onetrans={trans} isReceive={true} />
+                  <Trans key={index} onetrans={trans} account={account} />
                 ))}
               </div>
             )
@@ -67,8 +83,6 @@ const Activity = () => {
           </>
         }
       </div>
-      <p className="">Nfts </p>
-      <p className="">Names </p>
       {/* <button onClick={() => connectWallet()} className="m-4 bg-slate-400">connect wallet</button>
       <button onClick={() => disconnect()} className="m-4 bg-slate-400">disconnect</button>
       <Image width={14} height={14} src="/icons/aptos_logo.svg" alt="" /> */}

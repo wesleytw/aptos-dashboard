@@ -4,13 +4,12 @@ import { Trans } from '../components'
 const Activity = () => {
   const { iswallet, isconnect, account, balance, name, transactions, receptions, connectWallet, disconnect, sendApt } = useWeb3Context()
   const [tabState, setTabState] = useState("Transactions")
-  console.log("transactions", transactions)
+  console.log("transactions", transactions,receptions)
+
+
 
   return (
-    <div className="px-20  text-3xl">
-      {/* <div className=" rounded-lg ">
-        <p className=" rounded-lg"></p>
-      </div> */}
+    <div className=" text-3xl">
       <div className=" w-full p-4 bg-apt-dark border border-apt-grey rounded-lg ">
         <div className=" w-max flex rounded-lg bg-black border border-apt-grey ">
           <button className={" px-4 py-2 text-sm font-semibold text-center"
@@ -18,20 +17,36 @@ const Activity = () => {
             onClick={() => setTabState("Transactions")}>
             Transactions</button>
           <button className={" px-4 py-2 text-sm font-semibold text-center"
-            + (tabState == "Reciptions" ? ' text-white' : ' text-apt-light-grey hover:text-white border-0  ')}
-            onClick={() => { setTabState("Reciptions") }}>
-            Reciptions</button>
+            + (tabState == "Receptions" ? ' text-white' : ' text-apt-light-grey hover:text-white border-0  ')}
+            onClick={() => { setTabState("Receptions") }}>
+            Receptions</button>
         </div>
         {tabState == "Transactions" &&
           <>
             {transactions?.length < 1 ? (
-              <div className="">
-
+              <div className=" h-48 w-full p-16 text-2xl text-center text-apt-light-grey">
+                No Activity
+              </div>
+            ) : (
+              <div className=" mt-2 rounded-lg w-full border border-apt-grey overflow-hidden">
+                {transactions?.map((trans, index) => (
+                  <Trans key={index} onetrans={trans} isReceive={false} />
+                ))}
+              </div>
+            )
+            }
+          </>
+        }
+        {tabState == "Receptions" &&
+          <>
+            {receptions?.length < 1 ? (
+              <div className=" h-48 w-full p-16 text-2xl text-center text-apt-light-grey">
+                No Activity
               </div>
             ) : (
               <div className=" mt-2 rounded-lg w-full border border-apt-grey">
-                {transactions?.map((trans, index) => (
-                  <Trans key={index} trans={trans} />
+                {receptions?.map((trans, index) => (
+                  <Trans key={index} onetrans={trans} isReceive={true} />
                 ))}
               </div>
             )

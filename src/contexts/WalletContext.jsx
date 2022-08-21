@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect, createContext } from 'react'
+import axios from 'axios'
 // import { AptosClient, TokenClient } from "aptos";
 import { WalletClient } from '@martiandao/aptos-web3-bip44.js';
 import { BCS, TxnBuilderTypes } from 'aptos';
@@ -18,6 +19,8 @@ const WalletProvider = ({ children }) => {
   const [tokens, settokens] = useState()
   const [transactions, settransactions] = useState()
   const [receptions, setreceptions] = useState()
+  const [allTransactions, setallTransactions] = useState()
+
   // const aptosClient = new AptosClient("https://fullnode.devnet.aptoslabs.com");
   // const tokenClient = new TokenClient(aptosClient);
   const NODE_URL = "https://fullnode.devnet.aptoslabs.com/v1";
@@ -66,15 +69,23 @@ const WalletProvider = ({ children }) => {
       // setname(await nameService(account))
       setbalance(await walletClient.getBalance(account))
       // settokens(await walletClient.getTokenIds(account))
-      settransactions(await walletClient.getSentEvents(account))
-      setreceptions(await walletClient.getReceivedEvents(account))
+      const sendEvents = await walletClient.getSentEvents(account)
+      const descendSendEvents = [...sendEvents].sort((a, b) => b.timestamp - a.timestamp);
+      settransactions(descendSendEvents)
+      const receiveEvents = await walletClient.getReceivedEvents(account)
+      const getEventsWithTime = await Promise.all(receiveEvents.map(async i => {
+        const eventsWithTime= await fetchEvent(i.version)
+        return eventsWithTime
+      }))
+      const descendReceiveEvents = [...getEventsWithTime].sort((a, b) => b.timestamp - a.timestamp);
+      setreceptions(descendReceiveEvents)
     }
     getAccountInfo()
   }, [account])
 
   useEffect(() => {
     console.log("info", name, account, balance, transactions, receptions)
-  }, [name, account, balance, transactions, receptions])
+  }, [receptions])
 
   async function connectWallet() {
     if ("martian" in window) {
@@ -182,6 +193,18 @@ const WalletProvider = ({ children }) => {
     const response = await fetch(`https://www.aptosnames.com/api/v1/name/${address}`);
     const { name } = await response.json();
     return name
+  }
+
+  async function fetchEvent(version) {
+    let item
+    try {
+      const fetchIt = await axios.get(
+        `https://fullnode.devnet.aptoslabs.com/v1/transactions/by_version/${version}`, {})
+      item = fetchIt.data
+      return item
+    } catch (error) {
+      console.log("fetch error", error)
+    }
   }
 
   const contextValue = {

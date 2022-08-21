@@ -107,7 +107,7 @@ const App = () => {
             Activity</button>
         </div>
       </div>
-      <div className="py-10">
+      <div className="p-10 overflow-hidden  ">
         {tabState == "Profolio" && <Profolio />}
         {tabState == "activity" && <Activity />}
       </div>

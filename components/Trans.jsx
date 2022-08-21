@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Image from 'next/image'
-import { BsArrowDownLeftCircle, BsArrowDownRightCircle, BsArrowDownCircle, BsArrowRight,BsArrowUpRightCircle } from 'react-icons/bs';
+import { BsArrowDownLeftCircle, BsArrowDownRightCircle, BsArrowDownCircle, BsArrowRight, BsArrowUpRightCircle } from 'react-icons/bs';
 import { FiArrowRight } from 'react-icons/fi';
 import { TbParachute } from 'react-icons/tb';
 import { HiOutlineExternalLink } from 'react-icons/hi';
@@ -22,7 +22,7 @@ const Trans = ({ onetrans, account }) => {
   return (
     <div className=" text-sm border-b border-apt-grey overflow-hidden ">
       {/* <div className={" w-full overflow-hidden p-4 hover:bg-apt-grey cursor-pointer text-apt-green" } onClick={() => setisopen(!isopen)}> */}
-      <div className={" px-4 py-4 flex hover:bg-apt-grey cursor-pointer " + (isopen ? "text-apt-green " : "")} onClick={() => setisopen(!isopen)}>
+      <div className={" px-4 py-4 flex hover:bg-apt-grey cursor-pointer " + (isopen ? "bg-apt-grey " : "")} onClick={() => setisopen(!isopen)}>
         {(onetrans?.payload?.function == "0x1::aptos_coin::mint" && onetrans?.payload?.arguments[0] == account) ? (
           <div className=" flex justify-start items-center w-full ">
             <div className=" flex justify-start items-center ">
@@ -47,7 +47,7 @@ const Trans = ({ onetrans, account }) => {
             </div>
             <div className=" flex justify-start items-center ">
               <div className=" pl-8 text-2xs">
-                <p className=" pb-[1px] text-2xs text-apt-light-grey">Time</p>
+                <p className=" pb-[1px] text-2xs text-apt-light-grey">Timestamp</p>
                 {(new Date((onetrans?.expiration_timestamp_secs) * 1000)).toString()}
               </div>
             </div>
@@ -90,14 +90,14 @@ const Trans = ({ onetrans, account }) => {
                 </div>
                 <div className=" flex justify-start items-center ">
                   <div className=" pl-8 text-2xs">
-                    <p className=" pb-[1px] text-2xs text-apt-light-grey">Time</p>
+                    <p className=" pb-[1px] text-2xs text-apt-light-grey">Timestamp</p>
                     {(new Date((onetrans?.expiration_timestamp_secs) * 1000)).toString()}
                   </div>
                 </div>
-                  <a href={`https://explorer.devnet.aptos.dev/txn/${onetrans?.version}`} target="_blank" rel="noopener noreferrer"
-                    className=" ml-4 rounded-lg text-baseline justify-center items-center hover:bg-apt-grey">
-                    <HiOutlineExternalLink />
-                  </a>
+                <a href={`https://explorer.devnet.aptos.dev/txn/${onetrans?.version}`} target="_blank" rel="noopener noreferrer"
+                  className=" ml-4 rounded-lg text-baseline justify-center items-center hover:bg-apt-grey">
+                  <HiOutlineExternalLink />
+                </a>
               </div>
             ) : (
               <>
@@ -125,14 +125,14 @@ const Trans = ({ onetrans, account }) => {
                     </div>
                     <div className=" flex justify-start items-center ">
                       <div className=" pl-8 text-2xs">
-                        <p className=" pb-[1px] text-2xs text-apt-light-grey">Time</p>
+                        <p className=" pb-[1px] text-2xs text-apt-light-grey">Timestamp</p>
                         {(new Date((onetrans?.expiration_timestamp_secs) * 1000)).toString()}
                       </div>
                     </div>
-                      <a href={`https://explorer.devnet.aptos.dev/txn/${onetrans?.version}`} target="_blank" rel="noopener noreferrer"
-                        className=" ml-4 rounded-lg text-baseline justify-center items-center hover:bg-apt-grey">
-                        <HiOutlineExternalLink />
-                      </a>
+                    <a href={`https://explorer.devnet.aptos.dev/txn/${onetrans?.version}`} target="_blank" rel="noopener noreferrer"
+                      className=" ml-4 rounded-lg text-baseline justify-center items-center hover:bg-apt-grey">
+                      <HiOutlineExternalLink />
+                    </a>
                   </div>
                 ) : (
                   <div className=" flex justify-start items-center w-full ">
@@ -158,14 +158,14 @@ const Trans = ({ onetrans, account }) => {
                     </div>
                     <div className=" flex justify-start items-center ">
                       <div className=" pl-8 text-2xs">
-                        <p className=" pb-[1px] text-2xs text-apt-light-grey">Time</p>
+                        <p className=" pb-[1px] text-2xs text-apt-light-grey">Timestamp</p>
                         {(new Date((onetrans?.expiration_timestamp_secs) * 1000)).toString()}
                       </div>
                     </div>
-                      <a href={`https://explorer.devnet.aptos.dev/txn/${onetrans?.version}`} target="_blank" rel="noopener noreferrer"
-                        className=" ml-4 rounded-lg text-baseline justify-center items-center hover:bg-apt-grey">
-                        <HiOutlineExternalLink />
-                      </a>
+                    <a href={`https://explorer.devnet.aptos.dev/txn/${onetrans?.version}`} target="_blank" rel="noopener noreferrer"
+                      className=" ml-4 rounded-lg text-baseline justify-center items-center hover:bg-apt-grey">
+                      <HiOutlineExternalLink />
+                    </a>
                   </div>
                 )}
               </>
@@ -174,11 +174,47 @@ const Trans = ({ onetrans, account }) => {
         )}
       </div>
       {isopen &&
-        <div className=" w-full border-t border-apt-grey">
-          <div className="">
-            dsjaIO
-            <a href="huuus" className="" target="_blank" rel="noopener noreferrer">dsfsdg</a>
-
+        <div className=" w-full px-8 py-6 border-t border-apt-grey">
+          <div className=" grid grid-cols-4 gap-8">
+            <div className="break-all">
+              <p className=" text-2xs text-apt-light-grey ">From/To</p>
+              {(onetrans.sender == account) ? (onetrans?.payload?.arguments[0]) : (onetrans.sender)}
+            </div>
+            {/* <a href="huuus" className="" target="_blank" rel="noopener noreferrer">dsfsdg</a> */}
+            <div className=" ">
+              <p className=" text-2xs text-apt-light-grey">Status</p>
+              {onetrans?.vm_status}
+            </div>
+            <div className=" break-all">
+              <p className=" text-2xs text-apt-light-grey">Payload function</p>
+              {onetrans?.payload?.function}
+            </div>
+            <div className=" ">
+              <p className=" text-2xs text-apt-light-grey">Payload type argument</p>
+              {onetrans?.payload?.type_arguments[0]}
+            </div>
+            <div className=" ">
+              <p className=" text-2xs text-apt-light-grey">Gas used</p>
+              {onetrans?.gas_used}
+            </div>
+            <div className=" ">
+              <p className=" text-2xs text-apt-light-grey">Gas unit price</p>
+              {onetrans?.gas_unit_price}
+            </div>
+            <div className=" ">
+              <p className=" text-2xs text-apt-light-grey">Version</p>
+              {onetrans?.version}
+            </div>
+            <div className=" ">
+              <p className=" text-2xs text-apt-light-grey">Sequence number</p>
+              {onetrans?.sequence_number}
+            </div>
+            <div className=" flex justify-start items-center ">
+              <div className=" text-2xs">
+                <p className=" pb-[1px] text-2xs text-apt-light-grey">Timestamp</p>
+                {(new Date((onetrans?.expiration_timestamp_secs) * 1000)).toString()}
+              </div>
+            </div>
           </div>
         </div>
       }

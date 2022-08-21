@@ -1,28 +1,36 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useWeb3Context } from '../src/contexts/WalletContext'
 import { Trans } from '../components'
 const Activity = () => {
-  const { iswallet, isconnect, account, balance, name, transactions, receptions,getAllTransctions, connectWallet, disconnect, sendApt } = useWeb3Context()
+  const { iswallet, isconnect, account, balance, name, transactions, receptions,allTransactions,  getAllTransctions, connectWallet, disconnect, sendApt } = useWeb3Context()
   const [tabState, setTabState] = useState("Transactions")
-  async function fe(){
 
-    console.log("transactions", transactions,receptions
-    ,await getAllTransctions(account)
-    )
-  }
-fe()
+// let allTransactions
+  useEffect(() => {
+    async function fe() {
+      console.log("transactions", transactions, receptions , await getAllTransctions(account),allTransactions)
+    }
+    fe()
+  }, [allTransactions])
+
 
 
   return (
     <div className=" text-3xl">
       <div className=" w-full p-4 bg-apt-dark border border-apt-grey rounded-lg ">
-        <div className=" w-max flex rounded-lg bg-black border border-apt-grey ">
+        <div className=" w-max flex rounded-lg bg-black border border-apt-grey overflow-hidden">
           <button className={" px-4 py-2 text-sm font-semibold text-center"
-            + (tabState == "Transactions" ? ' text-white' : ' text-apt-light-grey hover:text-white border-0  ')}
+            + (tabState == "AllTransactions" ? ' text-white ' : ' text-apt-light-grey hover:text-white border-0  ')}
+            onClick={() => setTabState("AllTransactions")}>
+            All Transactions</button>
+          <span className="my-2 border-r border-apt-grey "></span>
+          <button className={" px-4 py-2 text-sm font-semibold text-center"
+            + (tabState == "Transactions" ? ' text-white ' : ' text-apt-light-grey hover:text-white border-0  ')}
             onClick={() => setTabState("Transactions")}>
             Transactions</button>
+          <span className="my-2 border-r border-apt-grey "></span>
           <button className={" px-4 py-2 text-sm font-semibold text-center"
-            + (tabState == "Receptions" ? ' text-white' : ' text-apt-light-grey hover:text-white border-0  ')}
+            + (tabState == "Receptions" ? ' text-white ' : ' text-apt-light-grey hover:text-white border-0  ')}
             onClick={() => { setTabState("Receptions") }}>
             Receptions</button>
         </div>

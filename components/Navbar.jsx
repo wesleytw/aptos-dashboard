@@ -17,10 +17,10 @@ const Navbar = () => {
 
   const { iswallet, isconnect, account, balance, name, connectWallet, disconnect, sendApt } = useWeb3Context()
 
-  useEffect(() => {
-    console.log("nav", isconnect, name, balance, router.pathname)
-  }, [isconnect])
-  console.log("nav1111")
+  // useEffect(() => {
+  //   console.log("nav", isconnect, name, balance, router.pathname)
+  // }, [isconnect])
+
   return (
     <div className=" z-50 font-maru font-bold text-base">
       <Modalinstall />

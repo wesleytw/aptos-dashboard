@@ -19,7 +19,7 @@ const WalletProvider = ({ children }) => {
   const [tokens, settokens] = useState()
   const [transactions, settransactions] = useState()
   const [receptions, setreceptions] = useState()
-  // const [allTransactions, setallTransactions] = useState()
+  const [allTransactions, setallTransactions] = useState()
 
   // const aptosClient = new AptosClient("https://fullnode.devnet.aptoslabs.com");
   // const tokenClient = new TokenClient(aptosClient);
@@ -79,15 +79,15 @@ const WalletProvider = ({ children }) => {
       }))
       const descendReceiveEvents = [...getEventsWithTime].sort((a, b) => b.timestamp - a.timestamp);
       setreceptions(descendReceiveEvents)
-      // const combinedEvents = [...sendEvents, ...getEventsWithTime]
-      // const descendCombinedEvents = [...combinedEvents].sort((a, b) => b.timestamp - a.timestamp);
-      // setallTransactions(descendCombinedEvents)
+      const combinedEvents = [...sendEvents, ...getEventsWithTime]
+      const descendCombinedEvents = [...combinedEvents].sort((a, b) => b.timestamp - a.timestamp);
+      setallTransactions(descendCombinedEvents)
     }
     getAccountInfo()
   }, [account])
 
   async function getAllTransctions(account) {
-    if (account === undefined) return "account === undefined"
+    if (account === undefined) return "account undefined"
     const sendEvents = await walletClient.getSentEvents(account)
     const receiveEvents = await walletClient.getReceivedEvents(account)        // receiveEvents have no timestamps.
     const getEventsWithTime = await Promise.all(receiveEvents.map(async i => {
@@ -100,12 +100,12 @@ const WalletProvider = ({ children }) => {
     return descendCombinedEvents
   }
 
-  useEffect(() => {
-    async function info (){
-      console.log("info", name, account, balance, transactions, receptions,await getAllTransctions(account))
-    }
-    info()
-  }, [receptions])
+  // useEffect(() => {
+  //   async function info (){
+  //     console.log("info", name, account, balance, transactions, receptions,await getAllTransctions(account))
+  //   }
+  //   info()
+  // }, [receptions])
 
   async function connectWallet() {
     if ("martian" in window) {
@@ -236,7 +236,7 @@ const WalletProvider = ({ children }) => {
     tokens: tokens,
     transactions: transactions,
     receptions: receptions,
-    // allTransactions: allTransactions,
+    allTransactions: allTransactions,
     getAllTransctions: getAllTransctions,
     connectWallet: connectWallet,
     disconnect: disconnect,

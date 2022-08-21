@@ -3,7 +3,7 @@ import { useWeb3Context } from '../src/contexts/WalletContext'
 import { Trans } from '../components'
 const Activity = () => {
   const { iswallet, isconnect, account, balance, name, transactions, receptions,allTransactions,  getAllTransctions, connectWallet, disconnect, sendApt } = useWeb3Context()
-  const [tabState, setTabState] = useState("Transactions")
+  const [tabState, setTabState] = useState("AllTransactions")
 
 // let allTransactions
   useEffect(() => {

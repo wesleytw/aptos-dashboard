@@ -14,7 +14,6 @@ const Activity = () => {
   }, [allTransactions])
 
 
-
   return (
     <div className=" text-3xl">
       <div className=" w-full p-4 bg-apt-dark border border-apt-grey rounded-lg ">

@@ -99,7 +99,7 @@ const Navbar = () => {
         </div>
         <Link href='/introapi'>
           <div className=" w-full btn btn-primary text-base justify-start hover:bg-apt-grey normal-case text-white">
-            <AiFillApi className={`w-5 h-5 mr-3 ${(router.pathname == "/contacts") ? "text-apt-green" : "text-white"}`} />
+            <AiFillApi className={`w-5 h-5 mr-3 ${(router.pathname == "/introapi") ? "text-apt-green" : "text-white"}`} />
             Api
           </div>
         </Link>

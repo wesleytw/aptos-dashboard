@@ -10,7 +10,7 @@ import Blockies from 'react-blockies';
 import { HiOutlineExternalLink } from 'react-icons/hi';
 import { AiFillHome, AiFillApi } from 'react-icons/ai';
 import { BsFillPeopleFill, BsPersonFill } from 'react-icons/bs';
-import { BiUser } from 'react-icons/bi';
+import { FaToolbox } from 'react-icons/fa';
 
 const Navbar = () => {
   const router = useRouter()
@@ -97,12 +97,20 @@ const Navbar = () => {
             </Link>
           }
         </div>
-        <Link href='/introapi'>
-          <div className=" w-full btn btn-primary text-base justify-start hover:bg-apt-grey normal-case text-white">
-            <AiFillApi className={`w-5 h-5 mr-3 ${(router.pathname == "/introapi") ? "text-apt-green" : "text-white"}`} />
-            Api
+        <div>
+          <Link href='/introapi'>
+            <div className=" w-full btn btn-primary text-base justify-start hover:bg-apt-grey normal-case text-white">
+              <AiFillApi className={`w-5 h-5 mr-3 ${(router.pathname == "/introapi") ? "text-apt-green" : "text-white"}`} />
+              Api
+            </div>
+          </Link>
+          {/* <Link href='/introapi'> */}
+          <div className=" w-full btn btn-primary btn-disabled text-base justify-start bg-transparent hover:bg-apt-grey normal-case text-gray-500">
+            <FaToolbox className={`w-5 h-5 mr-3 ${(router.pathname == "/sdk") ? "text-apt-green" : "text-gray-500"}`} />
+            SDK
           </div>
-        </Link>
+          {/* </Link> */}
+        </div>
       </nav>
     </div>
   )

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { shortenAddress } from '../src/utils/shortenAddress'
 import { useWeb3Context } from '../src/contexts/WalletContext'
+import Blockies from 'react-blockies';
 
 const Contactinfo = ({ contact }) => {
   const [copy, setCopy] = useState(false)
@@ -54,7 +55,16 @@ const Contactinfo = ({ contact }) => {
     <div className="pb-0 pt-4 mx-4">
       <div className=" flex justify-between border-b border-apt-grey">
         <div className=" flex justify-start">
-          <label className=" block mr-2">
+        <Blockies
+          seed={contact.inputAddr}
+          size={8}
+          scale={5}
+          color="#2ed8a7"
+          bgColor="#F0AB0A"
+          spotColor="#0057ff"
+          className="identicon rounded-full h-full w-full mt-1"
+        />
+          <label className=" block ml-5 mr-2">
             <p className=" mb-1 text-xs text-apt-light-grey">Nickname</p>
             <div className=" block w-32 bg-apt-dark text-base ">
               {contact.inputName}</div>

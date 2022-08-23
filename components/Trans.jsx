@@ -189,7 +189,7 @@ const Trans = ({ onetrans, account }) => {
               <p className=" text-2xs text-apt-light-grey">Payload function</p>
               {onetrans?.payload?.function}
             </div>
-            <div className=" ">
+            <div className=" break-all">
               <p className=" text-2xs text-apt-light-grey">Payload type argument</p>
               {onetrans?.payload?.type_arguments[0]}
             </div>

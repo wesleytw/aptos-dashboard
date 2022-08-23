@@ -9,7 +9,7 @@ const App = () => {
         <p className="">Api</p>
         <p className="mt-8 text-2xl"><span className="text-apt-green">apto</span>thmoon api provides an easy way to get all send & receive transactions sorted by timestamps.</p>
         <p className="mt-8 mb-1 text-3xl text-apt-green">GET</p>
-        <p className="text-2xl break-all">https://aptothemoon.vercel.app/api/getalltransctions/<span className="text-apt-green">&#123;address&#125;</span></p>
+        <p className="text-2xl break-all">https://aptothemoon.vercel.app/api/getalltransactions/<span className="text-apt-green">&#123;address&#125;</span></p>
       </div>
     </div>
   )

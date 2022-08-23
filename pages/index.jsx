@@ -24,8 +24,8 @@ const App = () => {
       <div className="h-[1440px] w-full p-96">
         {/* {receive} */}
         
-      <SiEthereum fontSize={300} color="#000" />
-      <SiEthereum className="w-16 h-16 text-amber-700 font-extrabold text-9xl" />
+      {/* <SiEthereum fontSize={300} color="#000" />
+      <SiEthereum className="w-16 h-16 text-amber-700 font-extrabold text-9xl" /> */}
       </div>
 
 

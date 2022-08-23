@@ -51,7 +51,7 @@ const Contactinfo = ({ contact }) => {
   }
   // console.log("contact", contact)
   return (
-    <div className="pb-4 mx-4">
+    <div className="pb-0 pt-4 mx-4">
       <div className=" flex justify-between border-b border-apt-grey">
         <div className=" flex justify-start">
           <label className=" block mr-2">
@@ -69,21 +69,21 @@ const Contactinfo = ({ contact }) => {
           <div className=" relative flex flex-col justify-end">
             {copy == "inputAddr" ? (
               <>
-                <img className=" mb-3 h-3 w-3 cursor-pointer" src='/icons/ic_copied.svg' />
+                <img className=" mb-4 h-3 w-3 cursor-pointer" src='/icons/ic_copied.svg' />
                 <div className=" absolute right-[-24px] -top-0 text-xs font-normal rounded bg-black bg-opacity-70 px-[6px] py-1 shadow">
                   Copied!</div>
               </>
             ) : (
-              <img className=" mb-3 h-4 w-4 cursor-pointer" src='/icons/ic_copied.svg' onClick={(e) => { navigator.clipboard.writeText(contact.inputAddr); handleCopy("inputAddr") }} />
+              <img className=" mb-4 h-4 w-4 cursor-pointer" src='/icons/ic_copied.svg' onClick={(e) => { navigator.clipboard.writeText(contact.inputAddr); handleCopy("inputAddr") }} />
             )}
           </div>
         </div>
         <form name="send" onSubmit={handleSubmit} className=" flex mb-3">
           <label className=" block mr-12">
-            <p className=" mb-0 text-xs text-apt-light-grey">amount</p>
+            <p className=" mb-1 text-xs text-apt-light-grey">Amount</p>
             <div className=" bg-black border border-apt-grey flex items-center px-2 rounded-md ">
               <input name="amount" type="number" onChange={handleChange} value={inputs.amount || ""} required min="0"
-                className=" mb-1 block w-20 h-5 px-2 bg-apt-dark text-sm shadow-sm placeholder-slate-500
+                className=" mb-1 block w-20 h-5 px-2 bg-black text-sm shadow-sm placeholder-slate-500
                 focus:outline-none focus:border-apt-green "
               />
               <Image width={10} height={10} src="/icons/aptos_logo.svg" alt="" />

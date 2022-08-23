@@ -55,7 +55,7 @@ const App = () => {
     if (account === undefined) return
     async function fetchUser() {
       const u = await getUser(account)
-      console.log("u", u)
+      // console.log("u", u)
       setcontacts(u)
     }
     fetchUser()
@@ -130,7 +130,7 @@ const App = () => {
                   Add</div>}
             </label>
           </form>
-          <div className=" rounded-lg p-4 bg-apt-dark border border-apt-grey">
+          <div className=" rounded-lg px-4 pb-0 bg-apt-dark border border-apt-grey">
             {(!contacts || contacts.length == 0) && <div className=' text-2xl text-center my-16'>No Contact</div>}
             {contacts?.map((contact, index) => (
               <Contactinfo key={index} contact={contact} />

@@ -101,13 +101,6 @@ const WalletProvider = ({ children }) => {
     return descendCombinedEvents
   }
 
-  // useEffect(() => {
-  //   async function info() {
-  //     console.log("info", name, account, balance, tokens, transactions, receptions, await getAllTransctions(account))
-  //   }
-  //   info()
-  // }, [receptions])
-
   async function connectWallet() {
     if ("martian" in window) {
       try {

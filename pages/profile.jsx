@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { HiOutlineExternalLink } from 'react-icons/hi';
 import { Profolio, Activity } from '../components'
 import { shortenAddress } from '../src/utils/shortenAddress'
-
+import Marquee from "react-fast-marquee";
 
 const App = () => {
   const { iswallet, isconnect, account, balance, name, connectWallet, disconnect, sendApt, sign } = useWeb3Context()
@@ -43,8 +43,13 @@ const App = () => {
       <div className=" relative bg-apt-dark px-20 pt-8 border-b border-apt-grey">
         <div className=" flex justify-between">
           <div className=" flex w-max min-w-max">
-            <div className=" relative w-min flex justify-between items-center">
-              <p className=" text-3xl">{account ? shortenAddress(account) : ""}</p>
+            <div className=" relative flex justify-between items-center">
+              {/* <p className=" text-3xl">{account ? shortenAddress(account) : ""}</p> */}
+              <div className=" w-36">
+                <Marquee className=" text-3xl" direction="right" pauseOnHover={true} speed={20} gradientWidth={20} gradientColor={[14, 18, 21]}>
+                  {shortenAddress(account)}&nbsp;&nbsp;&nbsp;
+                </Marquee>
+              </div>
               {copy == "account" ? (
                 <>
                   <img className="ml-2 h-4 w-4 cursor-pointer" src='/icons/ic_copied.svg' />
@@ -55,7 +60,7 @@ const App = () => {
                 <img className="ml-2 h-4 w-4 cursor-pointer" src='/icons/ic_copy.svg' onClick={(e) => { navigator.clipboard.writeText(account); handleCopy("account") }} />
               )}
             </div>
-            <div className=" relative ml-12 mt-2 w-max flex justify-between items-baseline ">
+            <div className=" relative ml-12 mt-2 mb-1 w-max flex justify-between items-baseline ">
               {name ? (
                 <>
                   <p className=" text-xl">{name}.apt</p>

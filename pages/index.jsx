@@ -3,7 +3,7 @@ import { AptosClient, TokenClient } from "aptos";
 // import aptosWeb3 from '@martiandao/aptos-web3.js';
 import aptosWeb3, { WalletClient } from '@martiandao/aptos-web3-bip44.js';
 import { SiEthereum } from "react-icons/si";
-
+import Marquee from "react-fast-marquee";
 const App = () => {
   const [receive, setreceive] = useState()
   // const walletClient = new aptosWeb3.WalletClient();
@@ -12,6 +12,11 @@ const App = () => {
 
 
   return (
+    <div className=' ml-60 pt-[60px] min-h-screen font-maru font-bold text-base'>
+      <div className=" p-8 h-32 bg-gradient-to-t from-black via-apt-dark w-full bg-apt-dark overflow-hidden ">
+      <Marquee direction="right" pauseOnHover={true} gradientColor={[14,18,21]}>
+  I can be a Rea
+</Marquee>
     <div>
       {/* <button onClick={() => getProvider()} className="m-4 bg-slate-400">getProvider </button>
       <button onClick={() => connectWallet()} className="m-4 bg-slate-400">connect wallet</button>
@@ -21,7 +26,7 @@ const App = () => {
         <button onClick={() => send()} className="m-4 bg-slate-400">send</button>
         <button onClick={() => sign()} className="m-4 bg-slate-400">sign</button>
       </div> */}
-      <div className="h-[1440px] w-full p-96">
+      <div className="h-[1440px] w-full p-96 ">
         {/* {receive} */}
         
       {/* <SiEthereum fontSize={300} color="#000" />
@@ -30,6 +35,8 @@ const App = () => {
 
 
 
+    </div>
+    </div>
     </div>
   )
 

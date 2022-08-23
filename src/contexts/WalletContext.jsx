@@ -156,7 +156,7 @@ const WalletProvider = ({ children }) => {
         const response = await window.martian.connect();
         const sender = response.address;
         const payload = {
-          type: "script_function_payload",
+          type: "entry_function_payload",
           function: "0x1::coin::transfer",
           type_arguments: ["0x1::aptos_coin::AptosCoin"],
           arguments: [address, amount]

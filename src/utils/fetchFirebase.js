@@ -1,6 +1,6 @@
 import {
   collection, getDocs, addDoc, updateDoc,
-  deleteDoc, doc, setDoc, query, where
+  deleteDoc, doc, setDoc, query, where, push
 } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "@firebase/firestore";
@@ -20,19 +20,36 @@ const db = getFirestore(app);
 
 export const createUser = async (user, data) => {
   const usersCollectionRef = collection(db, "contacts");
-  await setDoc(doc(usersCollectionRef, String(user)), data, { merge: true });
+  await setDoc(doc(usersCollectionRef), data);
   console.log("created")
   return "created"
 };
 
+// export const createUser = async (user, data) => {
+//   const usersCollectionRef = collection(db, "contacts");
+//   await setDoc(doc(usersCollectionRef, String(user)), data, { merge: true });
+//   console.log("created")
+//   return "created"
+// };
+
+// export const createUser = async (user, data) => {
+//   const usersCollectionRef = collection(db, "contacts");
+//   // await push(doc(usersCollectionRef, String(user)), data, { merge: true });
+//   doc(usersCollectionRef, String(user)).update( {
+//     array: firebase.firestore.FieldValue.arrayUnion( 'newItem' )
+//  });
+//   console.log("created")
+//   return "created"
+// };
+
 export const getUser = async (address) => {
-  const usersCollectionRef = collection(db, "applywhite");
-  const q = query(usersCollectionRef, where("address", "==", address));
+  const usersCollectionRef = collection(db, "contacts");
+  const q = query(usersCollectionRef, where("account", "==", address));
   const querySnapshota = await getDocs(q);
-  let data
+  let data =[]
   querySnapshota.forEach((doc) => {
-    data = doc.data()
-    data.date = new Date((data.date.seconds)*1000)
+    data.push( doc.data())
+    // data.time = new Date((data.date.seconds)*1000)
   });
   console.log("whit", data)
   return data

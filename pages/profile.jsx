@@ -43,12 +43,12 @@ const App = () => {
       <div className=" relative bg-apt-dark px-20 pt-8 border-b border-apt-grey">
         <div className=" flex justify-between">
           <div className=" flex w-max min-w-max">
-            <div className=" w-min flex justify-between items-center">
+            <div className=" relative w-min flex justify-between items-center">
               <p className=" text-3xl">{account ? shortenAddress(account) : ""}</p>
               {copy == "account" ? (
                 <>
                   <img className="ml-2 h-4 w-4 cursor-pointer" src='/icons/ic_copied.svg' />
-                  <div className=" absolute left-[225px] top-3 text-xs font-normal rounded bg-black bg-opacity-70 px-[6px] py-1 shadow">
+                  <div className=" absolute -right-[42px] -top-4 text-xs font-normal rounded bg-black bg-opacity-70 px-[6px] py-1 shadow">
                     Copied!</div>
                 </>
               ) : (
@@ -58,11 +58,11 @@ const App = () => {
             <div className=" relative ml-12 mt-2 w-max flex justify-between items-baseline ">
               {name ? (
                 <>
-                  <p className=" text-xl">wes.apt</p>
+                  <p className=" text-xl">{name}.apt</p>
                   {copy == "name" ? (
                     <>
                       <img className="ml-2 h-4 w-4 cursor-pointer" src='/icons/ic_copied.svg' />
-                      <div className=" absolute left-[70px] -top-5 text-xs font-normal rounded bg-black bg-opacity-70 px-[6px] py-1 shadow">
+                      <div className=" absolute right-[-24px] -top-5 text-xs font-normal rounded bg-black bg-opacity-70 px-[6px] py-1 shadow">
                         Copied!</div>
                     </>
                   ) : (

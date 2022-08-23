@@ -15,7 +15,7 @@ const Activity = () => {
 
 
   return (
-    <div className=" text-3xl">
+    <div className=" text-3xl">j
       <div className=" w-full p-4 bg-apt-dark border border-apt-grey rounded-lg ">
         <div className=" mb-4 w-max flex rounded-lg bg-black border border-apt-grey overflow-hidden">
           <button className={" px-4 py-2 text-sm font-semibold text-center"
@@ -26,12 +26,12 @@ const Activity = () => {
           <button className={" px-4 py-2 text-sm font-semibold text-center"
             + (tabState == "Transactions" ? ' text-white ' : ' text-apt-light-grey hover:text-white border-0  ')}
             onClick={() => setTabState("Transactions")}>
-            Transactions</button>
+            Send</button>
           <span className="my-2 border-r border-apt-grey "></span>
           <button className={" px-4 py-2 text-sm font-semibold text-center"
             + (tabState == "Receptions" ? ' text-white ' : ' text-apt-light-grey hover:text-white border-0  ')}
             onClick={() => { setTabState("Receptions") }}>
-            Receptions</button>
+            Receive</button>
         </div>
         {tabState == "AllTransactions" &&
           <>

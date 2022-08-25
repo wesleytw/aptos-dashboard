@@ -10,7 +10,7 @@ const Activity = () => {
     async function fe() {
       console.log("transactions", transactions, receptions , await getAllTransctions(account),allTransactions)
     }
-    fe()
+    // fe()
   }, [allTransactions])
 
 

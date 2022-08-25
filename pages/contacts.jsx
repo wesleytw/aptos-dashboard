@@ -45,6 +45,7 @@ const App = () => {
         setcontacts(u)
       }
       fetchUser()
+      setInputs({})
     } catch (error) {
       console.log(error, account)
       setSubmitState("")

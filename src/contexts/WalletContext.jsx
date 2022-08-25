@@ -67,7 +67,6 @@ const WalletProvider = ({ children }) => {
     }
     async function getAccountInfo() {
       setbalance(await walletClient.getBalance(account))
-      settokens(await walletClient.getTokenIds(account))
       const sendEvents = await walletClient.getSentEvents(account)
       const descendSendEvents = [...sendEvents].sort((a, b) => b.timestamp - a.timestamp);
       settransactions(descendSendEvents)
@@ -81,6 +80,7 @@ const WalletProvider = ({ children }) => {
       const combinedEvents = [...sendEvents, ...getEventsWithTime]
       const descendCombinedEvents = [...combinedEvents].sort((a, b) => b.timestamp - a.timestamp);
       setallTransactions(descendCombinedEvents)
+      settokens(await walletClient.getTokenIds(account))
       const name = await nameService(account)
       if (name !== undefined) { setname(name) }
     }

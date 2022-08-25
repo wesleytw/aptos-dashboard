@@ -1,6 +1,9 @@
 import React from 'react'
+import { useWeb3Context } from '../src/contexts/WalletContext'
 
 const Profolio = () => {
+  const { iswallet, isconnect, account, balance, tokens, name, transactions, receptions, allTransactions, getAllTransctions, connectWallet, disconnect, sendApt } = useWeb3Context()
+  console.log(tokens)
   return (
     <div className="p-20 pt-0 text-3xl">
       <div className=" w-full p-4 bg-apt-dark border border-apt-grey rounded-2xl ">

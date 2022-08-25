@@ -80,7 +80,7 @@ const WalletProvider = ({ children }) => {
       const combinedEvents = [...sendEvents, ...getEventsWithTime]
       const descendCombinedEvents = [...combinedEvents].sort((a, b) => b.timestamp - a.timestamp);
       setallTransactions(descendCombinedEvents)
-      settokens(await walletClient.getTokenIds(account))
+      settokens(await walletClient.getTokens(account))
       const name = await nameService(account)
       if (name !== undefined) { setname(name) }
     }

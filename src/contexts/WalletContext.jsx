@@ -61,7 +61,7 @@ const WalletProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    console.log("acc", account)
+    console.log("account", account)
     if (account === undefined) {
       return
     }

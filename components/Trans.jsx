@@ -48,7 +48,7 @@ const Trans = ({ onetrans, account }) => {
             <div className=" flex justify-start items-center ">
               <div className=" pl-8 text-2xs">
                 <p className=" pb-[1px] text-2xs text-apt-light-grey">Timestamp</p>
-                {(new Date((onetrans?.expiration_timestamp_secs) * 1000)).toString()}
+                {(new Date((onetrans?.timestamp) / 1000)).toString()}
               </div>
             </div>
             <>
@@ -91,7 +91,7 @@ const Trans = ({ onetrans, account }) => {
                 <div className=" flex justify-start items-center ">
                   <div className=" pl-8 text-2xs">
                     <p className=" pb-[1px] text-2xs text-apt-light-grey">Timestamp</p>
-                    {(new Date((onetrans?.expiration_timestamp_secs) * 1000)).toString()}
+                    {(new Date((onetrans?.timestamp) / 1000)).toString()}
                   </div>
                 </div>
                 <a href={`https://explorer.devnet.aptos.dev/txn/${onetrans?.version}`} target="_blank" rel="noopener noreferrer"
@@ -126,7 +126,7 @@ const Trans = ({ onetrans, account }) => {
                     <div className=" flex justify-start items-center ">
                       <div className=" pl-8 text-2xs">
                         <p className=" pb-[1px] text-2xs text-apt-light-grey">Timestamp</p>
-                        {(new Date((onetrans?.expiration_timestamp_secs) * 1000)).toString()}
+                        {(new Date((onetrans?.timestamp) / 1000)).toString()}
                       </div>
                     </div>
                     <a href={`https://explorer.devnet.aptos.dev/txn/${onetrans?.version}`} target="_blank" rel="noopener noreferrer"
@@ -159,7 +159,7 @@ const Trans = ({ onetrans, account }) => {
                     <div className=" flex justify-start items-center ">
                       <div className=" pl-8 text-2xs">
                         <p className=" pb-[1px] text-2xs text-apt-light-grey">Timestamp</p>
-                        {(new Date((onetrans?.expiration_timestamp_secs) * 1000)).toString()}
+                        {(new Date((onetrans?.timestamp) / 1000)).toString()}
                       </div>
                     </div>
                     <a href={`https://explorer.devnet.aptos.dev/txn/${onetrans?.version}`} target="_blank" rel="noopener noreferrer"
@@ -212,7 +212,7 @@ const Trans = ({ onetrans, account }) => {
             <div className=" flex justify-start items-center ">
               <div className=" text-2xs">
                 <p className=" pb-[1px] text-2xs text-apt-light-grey">Timestamp</p>
-                {(new Date((onetrans?.expiration_timestamp_secs) * 1000)).toString()}
+                {(new Date((onetrans?.timestamp) / 1000)).toString()}
               </div>
             </div>
           </div>

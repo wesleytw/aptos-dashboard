@@ -24,9 +24,9 @@ const App = () => {
           {/* <br/><br/><br/> */}
           <div className=" w-screen min-w-full px-16 py-16 mt-[60px] mb-0 text-white ">
             <div className=" relative w-full h-full flex flex-col justify-center items-baseline">
-              <p className=" -mt-16 text-3xl">Explore Aptos From </p>
+              <p className=" -mt-16 text-3xl z-10">Explore Aptos From </p>
               <p className=" mt-5 mb-16 text-6xl z-10"><span className=" text-apt-green">apto</span>themoon</p>
-              <div className=" text-xl bg-black px-1 py-3 pb-6">
+              <div className=" text-xl bg-black px-1 py-3 pb-6 z-10">
                 <Typewriter options={{
                   delay: 30,
                   loop: true
@@ -46,13 +46,13 @@ const App = () => {
                 />
                 <div className=" mb-5"></div>
                 {!iswallet ? (
-                  <label htmlFor="installmartian" onClick={() => disableScroll()} className=" btn btn-sm btn-secondary normal-case border-none text-apt-dark">
+                  <label htmlFor="installmartian" onClick={() => disableScroll()} className=" btn btn-sm btn-secondary normal-case border-none text-apt-dark z-10">
                     Install Wallet
                   </label>
                 ) : (
                   <>
                     {!isconnect ? (
-                      <button onClick={() => connectWallet()} className=" btn btn-sm btn-secondary normal-case border-none text-apt-dark ">
+                      <button onClick={() => connectWallet()} className=" btn btn-sm btn-secondary normal-case border-none text-apt-dark z-10">
                         Connect Wallet</button>
                     ) : (
                       <></>
@@ -61,7 +61,7 @@ const App = () => {
                 )}
               </div>
               {/* <div className=" w-full flex justify-end bg-gradient-to-b from-black"> */}
-              <img src="/icons/bg_moon.png" alt="" className=" absolute top-1 right-0 brightness-[0.3] filter blur" />
+              <img src="/icons/bg_moon.png" alt="" className=" z-0 absolute top-1 right-0 brightness-[0.3] filter blur" />
               {/* </div> */}
 
             </div>
@@ -78,7 +78,7 @@ const App = () => {
         </div>
 
       </div>
-      <div className=" p-8  bg-gradient-to-t from-black via-apt-dark w-full overflow-hidden ">
+      <div className=" p-0  bg-gradient-to-t from-black via-apt-dark w-full overflow-hidden ">
         <div className=" w-96">
           {/* <Marquee direction="right" pauseOnHover={true} gradientColor={[14, 18, 21]}>
             I can be a Rea
